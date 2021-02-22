@@ -17,7 +17,7 @@ namespace DIO.Bank
             this.Saldo = saldo;
             this.Credito = credito;
         }
-        
+        // Funções 
         public bool Sacar (double valorSaque) {
             // Validação de saldo suficiente
             if (this.Saldo - valorSaque < (this.Credito *-1)){
