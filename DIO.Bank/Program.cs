@@ -6,6 +6,7 @@ namespace DIO.Bank
     class Program
     {   // Uso provisorio para "guardar" as novas contas criadas.
         static List<Conta> listContas = new List<Conta>();
+
         static void Main(string[] args)
         {
             string opcaoUsuario = ObterOpcaoUsuario();
@@ -19,13 +20,13 @@ namespace DIO.Bank
                         InserirConta();
                         break;
                     case "3":
-                        //Transferir();
+                        Transferir();
                         break;
                     case "4":
-                        //Sacar();
+                        Sacar();
                         break;
                     case "5":
-                        //Depositar();
+                        Depositar();
                         break;
                     case "9":
                         Console.Clear();
@@ -38,9 +39,29 @@ namespace DIO.Bank
             }
             Console.WriteLine("Obrigado por utilizar nossos serviços.");
             Console.ReadLine();
+
+        // Criação das opções do menu.
+            static string ObterOpcaoUsuario() {
+            Console.WriteLine();
+            Console.WriteLine("BPQ Bank!");
+            Console.WriteLine("Informe a opção desejada:");
+
+            Console.WriteLine("1 - Listar contas");
+            Console.WriteLine("2 - Inserir nova conta");
+            Console.WriteLine("3 - Realizar transferência");
+            Console.WriteLine("4 - Realizar saque");
+            Console.WriteLine("5 - Realizar depósito");
+            Console.WriteLine("9 - Limpar tela");
+            Console.WriteLine("0 - Sair");
+            Console.WriteLine();
+
+            string opcaoUsuario = Console.ReadLine().ToUpper();
+            Console.WriteLine();
+            return opcaoUsuario;
+        }
         }
 
-        // Metodo para listar as contas existentes
+        // Método para listar as contas existentes
         private static void ListarContas()
         {
             Console.WriteLine("Listar contas");
@@ -57,7 +78,7 @@ namespace DIO.Bank
             }
         }
 
-        // Metodo para criação de novas contas
+        // Método para criação de novas contas
         private static void InserirConta()
         {
             Console.WriteLine("Inserir nova conta");
@@ -81,25 +102,41 @@ namespace DIO.Bank
 
             listContas.Add(novaConta);
         }
+        //Método para realizar o depósito.
+        private static void Depositar()
+        {
+            Console.WriteLine("Digite o número da conta: ");
+            int indiceConta = int.Parse(Console.ReadLine());
 
-        // Criação das opções do menu.
-        private static string ObterOpcaoUsuario() {
-            Console.WriteLine();
-            Console.WriteLine("BPQ Bank!");
-            Console.WriteLine("Informe a opção desejada:");
+            Console.WriteLine("Digite o valor a ser depositado: ");
+            double valorDeposito = double.Parse(Console.ReadLine());
 
-            Console.WriteLine("1 - Listar contas");
-            Console.WriteLine("2 - Inserir nova conta");
-            Console.WriteLine("3 - Realizar transferência");
-            Console.WriteLine("4 - Realizar saque");
-            Console.WriteLine("5 - Realizar depósito");
-            Console.WriteLine("9 - Limpar tela");
-            Console.WriteLine("0 - Sair");
-            Console.WriteLine();
+            listContas[indiceConta].Depositar(valorDeposito);
+        }
+        // Método para realizar o saque.
+           private static void Sacar()
+        {
+            Console.WriteLine("Digite o número da conta: ");
+            int indiceConta = int.Parse(Console.ReadLine());
 
-            string opcaoUsuario = Console.ReadLine().ToUpper();
-            Console.WriteLine();
-            return opcaoUsuario;
+            Console.WriteLine("Digite o valor a ser sacado: ");
+            double valorDeposito = double.Parse(Console.ReadLine());
+
+            listContas[indiceConta].Sacar(valorDeposito);
+        }
+        // Método para realizar a transferência.
+        private static void Transferir()
+        {
+            Console.WriteLine("Digite o número da conta de origem: ");
+            int indiceContaOrigem = int.Parse(Console.ReadLine());
+
+            Console.WriteLine("Digite o número da conta de destino: ");
+            int indiceContaDestino = int.Parse(Console.ReadLine());
+
+            Console.WriteLine("Digite o valor a ser transferido: ");
+            double valorDeposito = double.Parse(Console.ReadLine());
+
+            listContas[indiceContaOrigem].Transferir(valorDeposito, listContas[indiceContaDestino]);
         }
     }   
 }
